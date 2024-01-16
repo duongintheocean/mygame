@@ -4,6 +4,7 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -29,6 +30,12 @@ public class Window {
         System.out.println("Hello LWJGL "+ Version.getVersion()+ "!");
         init();
         loop();
+        // free memory
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+        // terninate glfw and the free
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
     }
     public void init(){
         //set up error callback
